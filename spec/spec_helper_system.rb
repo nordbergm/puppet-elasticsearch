@@ -1,6 +1,8 @@
 require 'rspec-system/spec_helper'
 require 'rspec-system-puppet/helpers'
 
+include RSpecSystemPuppet::Helpers
+
 RSpec.configure do |c|
   # Project root for the firewall code
   proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
@@ -11,7 +13,7 @@ RSpec.configure do |c|
   # This is where we 'setup' the nodes before running our tests
   c.system_setup_block = proc do
     # TODO: find a better way of importing this into this namespace
-    include RSpecSystemPuppet::Helpers
+    c.include RSpecSystemPuppet::Helpers
 
     # Install puppet
     puppet_install
