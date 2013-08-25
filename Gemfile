@@ -7,4 +7,4 @@ gem 'rspec-puppet'
 gem 'puppetlabs_spec_helper', '>= 0.1.0'
 gem 'rspec-system-puppet'
 gem 'rspec-system'
-gem 'vagrant'
+gem "vagrant", "~> 1.0.7"
