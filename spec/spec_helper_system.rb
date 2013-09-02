@@ -18,6 +18,7 @@ RSpec.configure do |c|
     puppet_install
     puppet_master_install
     system_run('wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.noarch.rpm /tmp')
+    system_run('yum install -y java-1.6.0-openjdk')
     system_run('rpm -Uhv /tmp/elasticsearch-0.90.3.noarch.rpm')
 
     system_run('puppet module install puppetlabs/stdlib')
