@@ -17,10 +17,11 @@ describe 'basic tests:' do
     end
   end
 
-  it 'my class should be idempotent' do
+#  it 'my class should be idempotent' do
     # Run it again and make sure no changes occurred this time, proving idempotency
-    puppet_apply(pp) do |r|
-      r[:exit_code].should == 0
-    end
-  end
+#    puppet_apply(pp) do |r|
+#      r[:exit_code].should == 0
+#    end
+#  end
+#
 end
