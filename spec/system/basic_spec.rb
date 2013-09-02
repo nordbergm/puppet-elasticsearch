@@ -1,24 +1,24 @@
 require 'spec_helper_system'
 
 describe 'basic tests:' do
-  # Here we create the var 'pp' to be later tested
-  let(:pp) do
+  # Using puppet_apply as a subject
+  context puppet_apply 'notice("foo")' do
+    its(:stdout) { should =~ /foo/ }
+    its(:stderr) { should be_empty }
+    its(:exit_code) { should be_zero }
+  end
+
+  # Using puppet_apply as a helper
+  it 'my class should work with no errors' do
     pp = <<-EOS
       class { 'elasticsearch': }
     EOS
-  end
 
-  it 'my class should work with no errors' do
-    # Run it once and make sure it doesn't bail with errors
+    # Run it twice and test for idempotency
     puppet_apply(pp) do |r|
-      r.exit_code.should_not eq(1)
-    end
-  end
-
-  it 'my class should be idempotent' do
-    # Run it again and make sure no changes occurred this time, proving idempotency
-    puppet_apply(pp) do |r|
-      r.exit_code.should == 0
+      r.exit_code.should_not == 1
+      r.refresh
+      r.exit_code.should be_zero
     end
   end
 end
