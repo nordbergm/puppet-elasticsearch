@@ -17,6 +17,8 @@ RSpec.configure do |c|
     # Install puppet
     puppet_install
     puppet_master_install
+    system_run('wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.noarch.rpm /tmp')
+    system_run('rpm -Uhv /tmp/elasticsearch-0.90.3.noarch.rpm')
 
     system_run('puppet module install puppetlabs/stdlib')
     # Replace mymodule with your module name
