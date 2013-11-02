@@ -27,7 +27,7 @@
 #
 # * Richard Pijnenburg <mailto:richard@ispavailability.com>
 #
-class elasticsearch::params {
+class elasticsearch::params($package_name = undef) {
 
   #### Default values for the parameters of the main module class, init.pp
 
@@ -61,19 +61,23 @@ class elasticsearch::params {
   #### Internal module values
 
   # packages
-  case $::operatingsystem {
-    'CentOS', 'Fedora', 'Scientific', 'RedHat', 'Amazon', 'OracleLinux': {
-      # main application
-      $package = [ 'elasticsearch' ]
+  if ($package_name == undef) {
+    case $::operatingsystem {
+      'CentOS', 'Fedora', 'Scientific', 'RedHat', 'Amazon', 'OracleLinux': {
+        # main application
+        $package = [ 'elasticsearch' ]
+      }
+      'Debian', 'Ubuntu': {
+        # main application
+        $package = [ 'elasticsearch' ]
+      }
+      default: {
+        fail("\"${module_name}\" provides no package default value
+              for \"${::operatingsystem}\"")
+      }
     }
-    'Debian', 'Ubuntu': {
-      # main application
-      $package = [ 'elasticsearch' ]
-    }
-    default: {
-      fail("\"${module_name}\" provides no package default value
-            for \"${::operatingsystem}\"")
-    }
+  } else {
+    $package = [ $package_name ]
   }
 
   # service parameters
