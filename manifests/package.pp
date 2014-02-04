@@ -78,7 +78,8 @@ class elasticsearch::package {
   package { $elasticsearch::params::package:
     ensure   => $package_ensure,
     source   => $tmpSource,
-    provider => $pkg_provider
+    provider => $pkg_provider,
+    notify   => Service[$elasticsearch::params::service_name]
   }
 
 }
